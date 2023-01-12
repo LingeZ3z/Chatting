@@ -4,16 +4,19 @@
 #include "Format.h"
 
 #ifdef LINUX
-typedef t_SOCKET int;
+#include <sys/socket.h>
+#include <arpa/inet.h>
+typedef int t_SOCKET;
 #endif
 
 #ifdef WINDOWS
 #include <windows.h>
 #include <winsock2.h>
-typedef t_SOCKET SOCKET;
+typedef SOCKET t_SOCKET;
 #endif
 
 void InitSocket(void);
 t_SOCKET CreateSocket(void);
+
 
 #endif
