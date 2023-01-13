@@ -6,17 +6,18 @@
 #ifdef LINUX
 #include <sys/socket.h>
 #include <arpa/inet.h>
-typedef int t_SOCKET;
+typedef int SOCKET_t;
 #endif
 
 #ifdef WINDOWS
 #include <windows.h>
 #include <winsock2.h>
-typedef SOCKET t_SOCKET;
+typedef SOCKET SOCKET_t;
 #endif
 
 void InitSocket(void);
-t_SOCKET CreateSocket(void);
-
+SOCKET_t CreateSocket(void);
+int BindSocket(SOCKET_t,SOCKADDR_IN);
+int UDPSend(SOCKET_t,SOCKADDR_IN,void *,size_t);
 
 #endif
