@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "cjson.h": "c",
+        "socketformat.h": "c",
+        "format.h": "c"
+    }
+}
