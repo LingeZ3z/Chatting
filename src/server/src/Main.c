@@ -50,5 +50,6 @@ int main(int argc,char *argv[])
     InitSocket();
     sock=CreateSocket(PF_INET,SOCK_DGRAM,0);
     setaddr();
+    server();
     return 0;
 }

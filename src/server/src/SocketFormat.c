@@ -1,4 +1,5 @@
 #include "./../inc/SocketFormat.h"
+#include <stdio.h>
 
 void InitSocket(void)
 {
@@ -17,15 +18,17 @@ SOCKET_t CreateSocket(int af,int type,int protocol)
 
 int BindSocket(SOCKET_t sock,SOCKADDR_IN saddr)
 {
-    bind(sock,&saddr,sizeof(saddr));
+    int re=bind(sock,(SOCKADDR*)&saddr,sizeof(saddr));
+    printf("%d\n",re);
 }
 
 int UDPSend(SOCKET_t sock,SOCKADDR_IN saddr,void *msg,size_t len)
 {
-    sendto(sock,msg,len,0,&saddr,sizeof(saddr));
+    sendto(sock,msg,len,0,(SOCKADDR*)&saddr,sizeof(saddr));
 }
 
 int UDPRecv(SOCKET_t sock,SOCKADDR_IN* saddr,void *msg,size_t len)
 {
-    recvfrom(sock,msg,len,0,saddr,sizeof((*saddr)));
+    int l=sizeof((*saddr));
+    recvfrom(sock,msg,len,0,(SOCKADDR*)saddr,&l);
 }

@@ -7,7 +7,7 @@ $(EXE) : $(OBJ)
 	$(CC) -o $@ $^ -lws2_32
 
 bin/cJSON.o : src/cJSON.c
-	$(CC) -o $@ $^
+	$(CC) -o $@ -c $^
 
 bin/Main.o : src/Main.c
 	$(CC) -o $@ -c $^
