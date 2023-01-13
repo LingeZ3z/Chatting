@@ -16,6 +16,9 @@ void read(void)
     cJSON *cjson=cJSON_Parse(buf);
     cJSON *jport=cJSON_GetObjectItem(cjson,"port");
     port=jport->valueint;
+    free(buf);
+    free(cjson);
+    free(jport);
 }
 
 int main(int argc,char *argv[])
