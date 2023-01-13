@@ -10,8 +10,8 @@
     #endif
 
     #ifdef WINDOWS
-    #include <windows.h>
     #include <winsock2.h>
+    #include <windows.h>
     typedef SOCKET SOCKET_t;
     #endif
 
