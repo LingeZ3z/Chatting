@@ -5,7 +5,7 @@
 #include "./../inc/cJSON.h"
 
 SOCKET_t sock;
-
+SOCKADDR_IN *clnts;
 
 void read(int *port)
 {
@@ -16,6 +16,9 @@ void read(int *port)
     cJSON *cjson=cJSON_Parse(buf);
     cJSON *jport=cJSON_GetObjectItem(cjson,"port");
     *port=jport->valueint;
+    cJSON *maxconn=cJSON_GetObjectItem(cjson,"max-connection");
+    int t=maxconn->valueint;
+    clnts=malloc(sizeof(SOCKADDR_IN)*t);
     free(buf);
     free(cjson);
     free(jport);
@@ -35,14 +38,7 @@ void setaddr(void)
 
 void server(void)
 {
-    char buf[256];
-    SOCKADDR_IN cadr;
-    while(1)
-    {
-        UDPRecv(sock,&cadr,buf,256);
-        printf("%s\n",buf);
-        memset(buf,0,256);
-    }
+    
 }
 
 int main(int argc,char *argv[])
