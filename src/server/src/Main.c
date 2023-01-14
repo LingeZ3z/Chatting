@@ -40,26 +40,20 @@ void setaddr(void)
 void server(void)
 {
     SOCKADDR_IN saddr;
-    char buf[1024];
-    int len=1024;
     while(1)
     {
         INETMSG inetmsg;
-        memset(&inetmsg,0,sizeof(inetmsg));
         UDPRecv(sock,&inetmsg.addr,inetmsg.buf,BUF_SIZE);
         if(strncmp(inetmsg.buf,"__$$$__add",10)==0)
         {
-
-            clnts[cnt++]=saddr;
-            printf("%d\n",cnt);
+            clnts[cnt++]=inetmsg.addr;
+            printf("%s:%d %d\n",inet_ntoa(inetmsg.addr.sin_addr),ntohs(inetmsg.addr.sin_port),cnt);
         }
         else
         {
             for(int i=0;i<cnt;i++)
             {
-                int re=sendto(sock,(char*)&inetmsg,sizeof(inetmsg),0,(SOCKADDR*)clnts+i,sizeof(SOCKADDR_IN));
-                // int re=UDPSend(sock,clnts[i],&inetmsg,sizeof(inetmsg));
-                printf("%d %d\n",i,re);
+                UDPSend(sock,clnts[i],inetmsg.buf,BUF_SIZE);
             }
         }
     }

@@ -29,6 +29,6 @@ int UDPSend(SOCKET_t sock,SOCKADDR_IN saddr,void *msg,size_t len)
 
 int UDPRecv(SOCKET_t sock,SOCKADDR_IN* saddr,void *msg,size_t len)
 {
-    int l=sizeof((*saddr));
+    int l=sizeof(SOCKADDR);
     recvfrom(sock,msg,len,0,(SOCKADDR*)saddr,&l);
 }
