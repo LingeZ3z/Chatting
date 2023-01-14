@@ -6,6 +6,7 @@
 
 SOCKET_t sock;
 SOCKADDR_IN *clnts;
+int cnt;
 
 void read(int *port)
 {
@@ -38,7 +39,25 @@ void setaddr(void)
 
 void server(void)
 {
-    
+    SOCKADDR_IN saddr;
+    char buf[1024];
+    int len=1024;
+    while(1)
+    {
+        INETMSG inetmsg;
+        UDPRecv(sock,&inetmsg.addr,inetmsg.buf,BUF_SIZE);
+        if(memcmp(buf,"__$$$__add",11))
+        {
+            clnts[cnt++]=saddr;
+        }
+        else
+        {
+            for(int i=0;i<cnt;i++)
+            {
+                UDPSend(sock,clnts[i],&inetmsg,sizeof(inetmsg));
+            }
+        }
+    }
 }
 
 int main(int argc,char *argv[])
