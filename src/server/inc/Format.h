@@ -3,11 +3,4 @@
 
 #define WINDOWS
 
-#define BUF_SIZE 1024
-typedef struct
-{
-    SOCKADDR_IN addr;
-    char buf[BUF_SIZE];
-}INETMSG;
-
 #endif

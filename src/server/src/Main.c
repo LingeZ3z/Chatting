@@ -45,16 +45,21 @@ void server(void)
     while(1)
     {
         INETMSG inetmsg;
+        memset(&inetmsg,0,sizeof(inetmsg));
         UDPRecv(sock,&inetmsg.addr,inetmsg.buf,BUF_SIZE);
-        if(memcmp(buf,"__$$$__add",11))
+        if(strncmp(inetmsg.buf,"__$$$__add",10)==0)
         {
+
             clnts[cnt++]=saddr;
+            printf("%d\n",cnt);
         }
         else
         {
             for(int i=0;i<cnt;i++)
             {
-                UDPSend(sock,clnts[i],&inetmsg,sizeof(inetmsg));
+                int re=sendto(sock,(char*)&inetmsg,sizeof(inetmsg),0,(SOCKADDR*)clnts+i,sizeof(SOCKADDR_IN));
+                // int re=UDPSend(sock,clnts[i],&inetmsg,sizeof(inetmsg));
+                printf("%d %d\n",i,re);
             }
         }
     }
