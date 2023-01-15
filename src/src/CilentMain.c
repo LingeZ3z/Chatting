@@ -22,7 +22,7 @@ void read(int *port,char *ip)
     free(cip);
 }
 
-void setaddr(void)
+SOCKADDR_IN setaddr(void)
 {
     int port;
     char ip[256];
@@ -32,12 +32,24 @@ void setaddr(void)
     saddr.sin_family=AF_INET;
     saddr.sin_port=htons(port);
     saddr.sin_addr.S_un.S_addr=inet_addr(ip);
-    ConnectSocket(sock,saddr);
+    return saddr;
+}
+
+void cilent(void)
+{
+    INETMSG inetmsg;
+    SOCKADDR_IN saddr=setaddr();
+    UDPSend(sock,(SOCKADDR_IN)saddr,"__$$$__add",11);
+    while(1)
+    {
+        // if(recvfrom())
+    }
 }
 
 int main(int argc,char *argv[])
 {
     InitSocket();
     sock=CreateSocket(PF_INET,SOCK_DGRAM,0);
+    SetUDPRecvX(sock);
     return 0;
 }

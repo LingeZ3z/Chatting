@@ -40,3 +40,9 @@ int UDPRecv(SOCKET_t sock,SOCKADDR_IN* saddr,void *msg,size_t len)
     int re=recvfrom(sock,msg,len,0,(SOCKADDR*)saddr,&l);
     return re;
 }
+
+int SetUDPRecvX(SOCKET_t sock)
+{
+    unsigned long on = 1;
+    return ioctlsocket(sock, FIONBIO, &on);
+}
