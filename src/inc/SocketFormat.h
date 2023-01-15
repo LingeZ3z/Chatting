@@ -25,6 +25,7 @@ typedef struct
 void InitSocket(void);
 SOCKET_t CreateSocket(int af,int type,int protocol);
 int BindSocket(SOCKET_t,SOCKADDR_IN);
+int ConnectSocket(SOCKET_t,SOCKADDR_IN);
 int UDPSend(SOCKET_t,SOCKADDR_IN,void *,size_t);
 int UDPRecv(SOCKET_t,SOCKADDR_IN *,void *,size_t);
 

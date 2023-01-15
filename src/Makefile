@@ -1,9 +1,12 @@
 CC = gcc
-EXE = out/deserver.exe
 RM = del
-OBJ = bin/cJSON.o bin/Main.o bin/SocketFormat.o
+SERVOBJ = bin/cJSON.o bin/ServerMain.o bin/SocketFormat.o
+CLNTOBJ = bin/CilentMain bin/SocketFormat.o
 
-$(EXE) : $(OBJ)
+server : $(SERVOBJ)
+	$(CC) -o $@ $^ -lws2_32
+
+cilent : $(SERVOBJ)
 	$(CC) -o $@ $^ -lws2_32
 
 bin/cJSON.o : src/cJSON.c
@@ -14,6 +17,10 @@ bin/Main.o : src/Main.c
 
 bin/SocketFormat.o : src/SocketFormat.c
 	$(CC) -o $@ -c $^
+
+bin/CilentMain : src/CilentMain.c
+	$(CC) -o $@ -c $^
+
 
 clean:
 	$(RM) out\server.exe bin\*.o

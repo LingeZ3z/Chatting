@@ -19,16 +19,24 @@ SOCKET_t CreateSocket(int af,int type,int protocol)
 int BindSocket(SOCKET_t sock,SOCKADDR_IN saddr)
 {
     int re=bind(sock,(SOCKADDR*)&saddr,sizeof(saddr));
-    printf("%d\n",re);
+    return re;
+}
+
+int ConnectSocket(SOCKET_t sock,SOCKADDR_IN saddr)
+{
+    int re=connect(sock,(SOCKADDR*)&saddr,sizeof(SOCKADDR));
+    return re;
 }
 
 int UDPSend(SOCKET_t sock,SOCKADDR_IN saddr,void *msg,size_t len)
 {
-    sendto(sock,msg,len,0,(SOCKADDR*)&saddr,sizeof(saddr));
+    int re=sendto(sock,msg,len,0,(SOCKADDR*)&saddr,sizeof(saddr));
+    return re;
 }
 
 int UDPRecv(SOCKET_t sock,SOCKADDR_IN* saddr,void *msg,size_t len)
 {
     int l=sizeof(SOCKADDR);
-    recvfrom(sock,msg,len,0,(SOCKADDR*)saddr,&l);
+    int re=recvfrom(sock,msg,len,0,(SOCKADDR*)saddr,&l);
+    return re;
 }

@@ -11,7 +11,7 @@ int cnt;
 void read(int *port)
 {
     char *buf=malloc(4096);
-    FILE *f=fopen("./config.json","r");
+    FILE *f=fopen("./server_config.json","r");
     fread(buf,4096,1,f);
     fclose(f);
     cJSON *cjson=cJSON_Parse(buf);
